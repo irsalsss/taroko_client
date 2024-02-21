@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button should render primary button successfully 1`] = `
+<body>
+  <div>
+    <div>
+      Button
+    </div>
+  </div>
+</body>
+`;
