@@ -1,5 +1,5 @@
 
-import { render } from '@/utils/test/test'
+import { render } from '@/utils/test/react-testing-setup'
 import Tab from './tab';
 
 const tabOptions = [

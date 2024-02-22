@@ -1,4 +1,4 @@
-import { render } from '@/utils/test/test'
+import { render } from '@/utils/test/react-testing-setup'
 import ButtonIcon from './button-icon';
 import { StarIcon } from '@radix-ui/react-icons';
 

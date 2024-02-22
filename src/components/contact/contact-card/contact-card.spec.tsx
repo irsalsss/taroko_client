@@ -1,4 +1,4 @@
-import { render } from '@/utils/test/test'
+import { render } from '@/utils/test/react-testing-setup'
 import ContactCard from './contact-card';
 
 describe("ContactCard", () => {
