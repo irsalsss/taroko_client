@@ -3,7 +3,7 @@ import { render } from '@/utils/test'
 
 describe("Button", () => {
   it("should render button successfully", () => {
-    const { baseElement } = render(<Button />)
+    const { baseElement } = render(<Button label="Click me" />)
 
     expect(baseElement).toMatchSnapshot();
     expect(baseElement).toBeTruthy();
