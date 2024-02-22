@@ -6,4 +6,4 @@ interface AccountInterface {
   description: string;
 }
 
-export default AccountInterface
+export default AccountInterface;

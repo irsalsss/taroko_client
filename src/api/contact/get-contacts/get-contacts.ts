@@ -11,10 +11,9 @@ interface GetContactsData {
   description: string;
 }
 
-export type GetContactsOutput = ReadonlyArray<AccountInterface>
+export type GetContactsOutput = ReadonlyArray<AccountInterface>;
 
-interface GetContactsResponse
-  extends ResponseInterface {
+interface GetContactsResponse extends ResponseInterface {
   data: ReadonlyArray<GetContactsData>;
 }
 

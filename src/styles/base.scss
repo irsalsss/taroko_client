@@ -55,57 +55,90 @@
 }
 
 .sr-only {
-	border: 0 !important;
-	clip: rect(1px, 1px, 1px, 1px) !important;
-	-webkit-clip-path: inset(50%) !important;
+  border: 0 !important;
+  clip: rect(1px, 1px, 1px, 1px) !important;
+  -webkit-clip-path: inset(50%) !important;
   clip-path: inset(50%) !important;
-	height: 1px !important;
-	overflow: hidden !important;
-	margin: -1px !important;
-	padding: 0 !important;
-	position: absolute !important;
-	width: 1px !important;
-	white-space: nowrap !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  margin: -1px !important;
+  padding: 0 !important;
+  position: absolute !important;
+  width: 1px !important;
+  white-space: nowrap !important;
 }
-  
+
 $sizes: 12;
 
 @mixin margin-classes {
   @for $i from 1 through $sizes {
-     $margin: $i * 0.25rem;
+    $margin: $i * 0.25rem;
     /* margin #{$margin} */
-    .m-#{$i}  {margin: $margin;}
-    .ml-#{$i} {margin-left: $margin;}
-    .mr-#{$i} {margin-right: $margin;}
-    .mt-#{$i} {margin-top: $margin;}
-    .mb-#{$i} {margin-bottom: $margin;}
-    .mx-#{$i} {margin-left: $margin; margin-right: $margin;}
-    .my-#{$i} {margin-top: $margin; margin-bottom: $margin;}
+    .m-#{$i} {
+      margin: $margin;
+    }
+    .ml-#{$i} {
+      margin-left: $margin;
+    }
+    .mr-#{$i} {
+      margin-right: $margin;
+    }
+    .mt-#{$i} {
+      margin-top: $margin;
+    }
+    .mb-#{$i} {
+      margin-bottom: $margin;
+    }
+    .mx-#{$i} {
+      margin-left: $margin;
+      margin-right: $margin;
+    }
+    .my-#{$i} {
+      margin-top: $margin;
+      margin-bottom: $margin;
+    }
   }
 }
 @include margin-classes;
-
 
 @mixin padding-classes {
   @for $i from 1 through $sizes {
     $padding: $i * 0.25rem;
     /* padding #{$padding} */
-    .p-#{$i} {padding: $padding;}
-    .pl-#{$i} {padding-left: $padding;}
-    .pr-#{$i} {padding-right: $padding;}
-    .pt-#{$i} {padding-top: $padding;}
-    .pb-#{$i} {padding-bottom: $padding;}
-    .px-#{$i} {padding-left: $padding; padding-right: $padding;}
-    .py-#{$i} {padding-top: $padding; padding-bottom: $padding;}
+    .p-#{$i} {
+      padding: $padding;
+    }
+    .pl-#{$i} {
+      padding-left: $padding;
+    }
+    .pr-#{$i} {
+      padding-right: $padding;
+    }
+    .pt-#{$i} {
+      padding-top: $padding;
+    }
+    .pb-#{$i} {
+      padding-bottom: $padding;
+    }
+    .px-#{$i} {
+      padding-left: $padding;
+      padding-right: $padding;
+    }
+    .py-#{$i} {
+      padding-top: $padding;
+      padding-bottom: $padding;
+    }
   }
 }
 @include padding-classes;
 
 @mixin gap {
   @for $i from 1 through $sizes {
-     $gap: $i * 0.25rem;
+    $gap: $i * 0.25rem;
     /* gap #{$gap} */
-    .gap-#{$i}  {gap: $gap;}
+    .gap-#{$i} {
+      gap: $gap;
+    }
   }
 }
 @include gap;

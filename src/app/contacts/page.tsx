@@ -4,13 +4,13 @@ import queryClient from "@/utils/query-client-server/query-client-server";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 
 const ContactsPage = () => {
-  prefetchGetContactsQuery()
+  prefetchGetContactsQuery();
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <ContactList />
     </HydrationBoundary>
-  )
-}
+  );
+};
 
-export default ContactsPage
+export default ContactsPage;

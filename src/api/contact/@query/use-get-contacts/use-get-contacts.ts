@@ -1,14 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
-import { GetContactsOutput, getContacts } from "../../get-contacts/get-contacts";
+import {
+  GetContactsOutput,
+  getContacts,
+} from "../../get-contacts/get-contacts";
 import queryClient from "@/utils/query-client-server/query-client-server";
 
 export const useGetContactsQuery = () => {
-  return useQuery(    
-    {
-      queryKey: ['useGetContactsQuery'],
-      queryFn: getContacts,
-    }
-  );
+  return useQuery({
+    queryKey: ["useGetContactsQuery"],
+    queryFn: getContacts,
+  });
 };
 
 export const prefetchGetContactsQuery = async () => {
@@ -20,12 +21,10 @@ export const prefetchGetContactsQuery = async () => {
     data = [];
   }
 
-  await queryClient.prefetchQuery(    
-    {
-      queryKey: ['useGetContactsQuery'],
-      queryFn: getContacts,
-    }
-  );
+  await queryClient.prefetchQuery({
+    queryKey: ["useGetContactsQuery"],
+    queryFn: getContacts,
+  });
 
   return data;
 };

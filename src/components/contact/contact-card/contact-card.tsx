@@ -1,7 +1,12 @@
-import AccountInterface from '@/interfaces/contact/account.interface'
-import style from './contact-card.module.scss';
-import { StarIcon, StarFilledIcon, Pencil2Icon, TrashIcon } from '@radix-ui/react-icons'
-import ButtonIcon from '@/components/shared/button-icon/button-icon';
+import AccountInterface from "@/interfaces/contact/account.interface";
+import style from "./contact-card.module.scss";
+import {
+  StarIcon,
+  StarFilledIcon,
+  Pencil2Icon,
+  TrashIcon,
+} from "@radix-ui/react-icons";
+import ButtonIcon from "@/components/shared/button-icon/button-icon";
 
 interface ContactCardProps {
   contact: AccountInterface;
@@ -16,13 +21,13 @@ const ContactCard = ({
   isFavorite,
   onEditContact,
   onDeleteContact,
-  onFavoriteContact
+  onFavoriteContact,
 }: ContactCardProps) => {
   return (
-    <div className={style['contact-card-container']}>
-      <div className={style['contact-container']}>
+    <div className={style["contact-card-container"]}>
+      <div className={style["contact-container"]}>
         <ButtonIcon
-          label={isFavorite ? 'star-filled-icon' : 'star-icon'}
+          label={isFavorite ? "star-filled-icon" : "star-icon"}
           onClick={onFavoriteContact}
         >
           {isFavorite ? (
@@ -32,38 +37,34 @@ const ContactCard = ({
           )}
         </ButtonIcon>
 
-      <div className={style['contact-other-information-container']}>
-        <span className='font-bold'>{contact.firstName + ' ' + contact.lastName}</span>
+        <div className={style["contact-other-information-container"]}>
+          <span className='font-bold'>
+            {contact.firstName + " " + contact.lastName}
+          </span>
 
-        <div className={style['contact-other-information']}>
-          <span>Job:</span>
-          <span>{contact.job}</span>
-        </div>
+          <div className={style["contact-other-information"]}>
+            <span>Job:</span>
+            <span>{contact.job}</span>
+          </div>
 
-        <div className={style['contact-other-information']}>
-          <span>Description:</span>
-          <span>{contact.description}</span>
+          <div className={style["contact-other-information"]}>
+            <span>Description:</span>
+            <span>{contact.description}</span>
+          </div>
         </div>
       </div>
-      </div>
 
-      <div className={style['contact-action-container']}>
-        <ButtonIcon
-          label='edit-icon'
-          onClick={onEditContact}
-        >
+      <div className={style["contact-action-container"]}>
+        <ButtonIcon label='edit-icon' onClick={onEditContact}>
           <Pencil2Icon />
         </ButtonIcon>
 
-        <ButtonIcon
-          label='delete-icon'
-          onClick={onDeleteContact}
-        >
+        <ButtonIcon label='delete-icon' onClick={onDeleteContact}>
           <TrashIcon />
         </ButtonIcon>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ContactCard
+export default ContactCard;
