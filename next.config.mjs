@@ -7,15 +7,6 @@ const __dirname = new URL(".", import.meta.url).pathname;
 const nextConfig = {
   sassOptions: {
     includePaths: [path.join(__dirname, "styles")],
-    async redirects() {
-      return [
-        {
-          source: "/",
-          destination: "/contacts",
-          permanent: true,
-        },
-      ];
-    },
   },
 };
 
