@@ -6,9 +6,9 @@ import { createQueryString } from "@/utils/create-query-string/create-query-stri
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons"
 import { debounce } from "lodash-es";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 
-const ContactHeader = () => {
+const Header = () => {
   const pathname = usePathname()
   const query = useSearchParams()
   const { push } = useRouter();
@@ -46,6 +46,14 @@ const ContactHeader = () => {
 
       <Button label="Add" onClick={handleDirectToCreateContact} />
     </div>
+  )
+}
+
+const ContactHeader = () => {
+  return (
+    <Suspense>
+      <Header />
+    </Suspense>
   )
 }
 
