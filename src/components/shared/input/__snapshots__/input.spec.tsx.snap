@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button should render button successfully 1`] = `
+<body>
+  <div>
+    <div
+      class="relative"
+    >
+      <input
+        class="input"
+        placeholder="Search ..."
+      />
+    </div>
+  </div>
+</body>
+`;

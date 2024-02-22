@@ -1,0 +1,22 @@
+.input {
+  padding: 12px 16px 12px 32px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+.inputIcon {
+  position: absolute;
+  top: 18px;
+  left: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  svg {
+    height: 20px;
+    width: 20px;
+  }
+}
