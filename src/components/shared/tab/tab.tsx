@@ -7,13 +7,15 @@ interface TabProps {
     label: string;
     value: string;
   }>
+  onClickTab?: (value: string) => void;
 }
 
-const Tab = ({ options }: TabProps) => {
+const Tab = ({ options, onClickTab }: TabProps) => {
   const [active, setActive] = useState(options[0].value)
 
   const handleClickTab = (value: string) => {
     setActive(value)
+    onClickTab && onClickTab(value)
   }
 
   return (
@@ -21,7 +23,7 @@ const Tab = ({ options }: TabProps) => {
       {options.map((opt) => (
         <div
           key={opt.value}
-          className={clsx(style.tab, active === opt.value && style.tabActive)}
+          className={clsx(style['tab'], active === opt.value && style['tab-active'])}
           onClick={() => handleClickTab(opt.value)}
         >
           <span>{opt.label}</span>

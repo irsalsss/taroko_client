@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Button should render tab successfully 1`] = `
+exports[`Tab should render tab successfully 1`] = `
 <body>
   <div>
     <div
       class="flex items-center gap-3 w-full"
     >
       <div
-        class="tab tabActive"
+        class="tab tab-active"
       >
         <span>
           All

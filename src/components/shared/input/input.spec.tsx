@@ -1,8 +1,8 @@
 
-import { render } from '@/utils/test'
+import { render } from '@/utils/test/test'
 import Input from './input';
 
-describe("Button", () => {
+describe("Input", () => {
   it("should render input successfully", () => {
     const { baseElement } = render(<Input placeholder="Search ..." />)
 

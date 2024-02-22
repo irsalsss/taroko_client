@@ -7,7 +7,7 @@ interface ButtonProps extends ComponentPropsWithoutRef<'button'> {
 
 const Button = (props: ButtonProps) => {
   return (
-    <button className={style.button} role="button" {...props}>{props.label}</button>
+    <button className={style['button']} role="button" {...props}>{props.label}</button>
   )
 }
 

@@ -33,7 +33,7 @@ const ContactHeader = () => {
   }
 
   return (
-    <div className="flex items-center justify-between w-full py-2 px-4">
+    <div className="flex items-center justify-between w-full px-4">
       <h3>Contact List</h3>
 
       <Input

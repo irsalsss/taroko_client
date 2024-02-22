@@ -1,5 +1,5 @@
 
-import { render } from '@/utils/test'
+import { render } from '@/utils/test/test'
 import Tab from './tab';
 
 const tabOptions = [
@@ -13,7 +13,7 @@ const tabOptions = [
   },
 ]
 
-describe("Button", () => {
+describe("Tab", () => {
   it("should render tab successfully", () => {
     const { baseElement } = render(<Tab options={tabOptions} />)
 

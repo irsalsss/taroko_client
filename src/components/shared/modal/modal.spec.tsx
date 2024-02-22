@@ -1,5 +1,5 @@
 
-import { render } from '@/utils/test'
+import { render } from '@/utils/test/test'
 import Modal from './modal';
 
 describe("Button", () => {

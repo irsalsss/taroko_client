@@ -1,5 +1,5 @@
 import Button from "./button";
-import { render } from '@/utils/test'
+import { render } from '@/utils/test/test'
 
 describe("Button", () => {
   it("should render button successfully", () => {

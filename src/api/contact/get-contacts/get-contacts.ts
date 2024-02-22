@@ -1,5 +1,6 @@
-import ResponseInterface from "@/interfaces/response.interface";
-import fetchJson from "@/utils/fetch-json";
+import AccountInterface from "@/interfaces/contact/account.interface";
+import ResponseInterface from "@/interfaces/shared/response.interface";
+import fetchJson from "@/utils/fetch-json/fetch-json";
 import mapToCamelCase from "@/utils/map-to-camel-case/map-to-camel-case";
 
 interface GetContactsData {
@@ -10,13 +11,7 @@ interface GetContactsData {
   description: string;
 }
 
-export interface GetContactsOutput {
-  id: number;
-  firstName: string;
-  lastName: string;
-  job: string;
-  description: string;
-}
+export type GetContactsOutput = ReadonlyArray<AccountInterface>
 
 interface GetContactsResponse
   extends ResponseInterface {
@@ -25,7 +20,7 @@ interface GetContactsResponse
 
 export const getContacts = async (
   options?: RequestInit
-): Promise<ReadonlyArray<GetContactsOutput>> => {
+): Promise<GetContactsOutput> => {
   const response = await fetchJson<GetContactsResponse>(
     "/api/contacts",
     options

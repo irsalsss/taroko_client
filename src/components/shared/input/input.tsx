@@ -9,12 +9,12 @@ const Input = (props: InputProps) => {
   return (
     <div className="relative">
       {props.icon ? (
-        <div className={style.inputIcon}>
+        <div className={style['input-icon']}>
           {props.icon}
         </div>
       ) : null}
 
-      <input className={style.input} {...props} />
+      <input className={style['input']} {...props} />
     </div>
   )
 }
