@@ -10,7 +10,7 @@ interface GetContactsData {
   description: string;
 }
 
-interface GetContactsOutput {
+export interface GetContactsOutput {
   id: number;
   firstName: string;
   lastName: string;

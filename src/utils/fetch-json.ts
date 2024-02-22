@@ -2,13 +2,11 @@ import { env } from "@/config/env";
 
 import * as uuid from "uuid";
 
-const BASE_URL = typeof window === "undefined" ? env.API_URL : "";
-
 export const fetchJson = async <JSONDataType = unknown>(
   input: RequestInfo,
   init?: RequestInit
 ): Promise<JSONDataType> => {
-  const url = BASE_URL + input;
+  const url = env.API_URL + input;
 
   const response = await fetch(url, {
     ...init,
