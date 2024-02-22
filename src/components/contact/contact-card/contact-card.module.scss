@@ -4,14 +4,14 @@
   border: 1px solid #222;
   padding: 16px;
   position: relative;
-  align-items: start;
+  align-items: flex-start;
   width: 400px;
 }
 
 .contact-container {
   display: flex;
   gap: 8px;
-  align-items: start;
+  align-items: flex-start;
 }
 
 .contact-other-information-container {
