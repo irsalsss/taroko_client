@@ -1,5 +1,6 @@
 "use client";
 
+import useCreateContact from "@/api/contact/@mutation/use-create-contact/use-create-contact";
 import Input from "@/components/shared/input/input";
 import Modal from "@/components/shared/modal/modal";
 import { ContactFormField } from "@/interfaces/contact/contact.interface";
@@ -17,12 +18,21 @@ const ContactModalAddEdit = ({
 }: ContactModalAddEditProps) => {
   const isAddMode = activeId === 0;
 
+  const { mutate: createContact } = useCreateContact();
+
   const { control, handleSubmit } = useForm<ContactFormField>({
     mode: "onChange",
   });
 
-  const onSubmit = (data: any) => {
-    console.log(data);
+  const onSubmit = (data: ContactFormField) => {
+    createContact(data, {
+      onSuccess: () => {
+        console.log("successfully created");
+      },
+      onError: () => {
+        console.log("error created");
+      },
+    });
   };
 
   const content = (
