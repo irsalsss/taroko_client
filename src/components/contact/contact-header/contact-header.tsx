@@ -35,7 +35,7 @@ const Header = ({ onOpenModalAdd }: ContactHeaderProps) => {
   };
 
   return (
-    <div className='flex flex-wrap items-center justify-between w-full px-4'>
+    <div className='flex flex-wrap items-center justify-between w-full px-4 gap-4'>
       <h3>Contact List</h3>
 
       <Input
