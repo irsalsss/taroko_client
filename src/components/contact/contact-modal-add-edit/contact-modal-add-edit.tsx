@@ -12,6 +12,8 @@ import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { isEmpty } from "lodash-es";
 import Loader from "@/components/shared/loader/loader";
+import useEditContact from "@/api/contact/@mutation/use-edit-contact/use-edit-contact";
+import { ERROR_NOT_FOUND } from "@/constants/error";
 
 interface ContactModalAddEditProps {
   activeId: number;
@@ -28,10 +30,12 @@ const ContactModalAddEdit = ({
 
   const { data: detailContact, isLoading } = useGetDetailContactsQuery(
     activeId,
-    activeId > -1
+    activeId > 0
   );
 
   const { mutate: createContact } = useCreateContact();
+
+  const { mutate: editContact } = useEditContact();
 
   const {
     control,
@@ -44,16 +48,39 @@ const ContactModalAddEdit = ({
   });
 
   const onSubmit = (data: ContactFormField) => {
-    createContact(data, {
-      onSuccess: () => {
-        refetch();
-        notify("Successfully created");
-        onClose();
-      },
-      onError: () => {
-        notify("Something went wrong, please try again");
-      },
-    });
+    if (isAddMode) {
+      createContact(data, {
+        onSuccess: () => {
+          refetch();
+          notify("Successfully created");
+          onClose();
+        },
+        onError: () => {
+          notify("Something went wrong, please try again");
+        },
+      });
+
+      return;
+    }
+
+    editContact(
+      { ...data, id: activeId },
+      {
+        onSuccess: () => {
+          refetch();
+          notify("Successfully edited");
+          onClose();
+        },
+        onError: (response) => {
+          if (response.statusCode === ERROR_NOT_FOUND) {
+            notify(response.message);
+            return;
+          }
+
+          notify(`Something went wrong, please try again`);
+        },
+      }
+    );
   };
 
   useEffect(() => {
@@ -62,6 +89,7 @@ const ContactModalAddEdit = ({
     }
   }, [detailContact]);
 
+  // TODO: doesnt update after open another contact
   const content = (
     <div className='flex flex-col gap-4 p-4'>
       <div className='flex flex-col gap-1'>
@@ -163,7 +191,7 @@ const ContactModalAddEdit = ({
   return (
     <Modal
       title={isAddMode ? "Add Contact" : "Edit Contact"}
-      content={isLoading ? loaderContent : content}
+      content={!isAddMode && isLoading ? loaderContent : content}
       onClose={onClose}
       onSubmit={handleSubmit(onSubmit)}
       isDisableSubmit={!isDirty || !isValid}

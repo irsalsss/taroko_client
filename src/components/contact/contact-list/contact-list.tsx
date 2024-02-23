@@ -62,10 +62,6 @@ const ContactList = () => {
     });
   };
 
-  const handleEditContact = () => {
-    // TODO: will be implemented on card {card-number}
-  };
-
   const handleFavoriteContact = () => {
     // TODO: will be implemented on card {card-number}
   };

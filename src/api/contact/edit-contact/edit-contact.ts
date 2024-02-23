@@ -4,29 +4,25 @@ import fetchJson from "@/utils/fetch-json/fetch-json";
 import mapToCamelCase from "@/utils/map-to-camel-case/map-to-camel-case";
 import mapToSnakeCase from "@/utils/map-to-snake-case/map-to-snake-case";
 
-type CreateContactInput = Omit<ContactInterface, 'id'> & {
+export type EditContactInput = Omit<ContactInterface, 'id'> & {
   id?: number;
 }
 
-export interface CreateContactOutput extends ResponseInterface {
+export interface EditContactOutput extends ResponseInterface {
   message: string;
   statusCode: number;
   data: ContactInterface;
 };
 
-export const createContact = async (data: CreateContactInput): Promise<CreateContactOutput> => {
-  const payload = { ...data }
-
-  delete payload.id
-
+export const editContact = async (data: EditContactInput): Promise<EditContactOutput> => {
   const body = mapToSnakeCase({
-    contact: payload
+    info: data
   });
 
   const response = await fetchJson<ResponseInterface>(
-    "/api/contacts",
+    "/api/contacts/" + data.id,
     {
-      method: "POST",
+      method: "PATCH",
       body: JSON.stringify(body),
     }
   );
@@ -34,5 +30,5 @@ export const createContact = async (data: CreateContactInput): Promise<CreateCon
   return mapToCamelCase(response)
 };
 
-export default createContact;
+export default editContact;
 
