@@ -7,6 +7,8 @@ import Tab from "@/components/shared/tab/tab";
 import Modal from "@/components/shared/modal/modal";
 import { useState } from "react";
 import ContactModalAddEdit from "../contact-modal-add-edit/contact-modal-add-edit";
+import useDeleteContact from "@/api/contact/@mutation/use-delete-contact/use-delete-contact";
+import { notify } from "@/components/shared/toaster/toaster";
 
 const tabOptions = [
   {
@@ -23,7 +25,9 @@ const ContactList = () => {
   const [openModalDelete, setOpenModalDelete] = useState(0);
   const [openModalAddEdit, setOpenModalAddEdit] = useState(-1);
 
-  const { data: contacts = [] } = useGetContactsQuery();
+  const { data: contacts = [], refetch } = useGetContactsQuery();
+
+  const { mutate: deleteContact } = useDeleteContact();
 
   const handleOpenModalDelete = (id: number) => {
     setOpenModalDelete(id);
@@ -31,6 +35,26 @@ const ContactList = () => {
 
   const handleOpenModalAddEdit = (id: number) => {
     setOpenModalAddEdit(id);
+  };
+
+  const handleDeleteContact = () => {
+    const id = openModalDelete;
+
+    deleteContact(id, {
+      onSuccess: () => {
+        const deletedContact = contacts.find((contact) => contact.id === id);
+
+        setOpenModalDelete(0);
+        notify(
+          `${deletedContact?.firstName} ${deletedContact?.lastName} has been deleted`
+        );
+        refetch();
+      },
+      onError: (response) => {
+        // TODO: fix these one cause got response Error type instead of object
+        console.log("response", response);
+      },
+    });
   };
 
   const handleEditContact = () => {
@@ -68,7 +92,7 @@ const ContactList = () => {
           title='Delete Contact'
           content='Are you sure want to delete this contact?'
           onClose={() => handleOpenModalDelete(0)}
-          onSubmit={() => {}}
+          onSubmit={handleDeleteContact}
         />
       ) : null}
 
