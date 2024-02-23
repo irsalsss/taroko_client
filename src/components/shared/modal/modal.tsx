@@ -1,6 +1,6 @@
 import { Cross1Icon } from "@radix-ui/react-icons";
 import styles from "./modal.module.scss";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import clsx from "clsx";
 
 interface ModalProps {
@@ -25,6 +25,14 @@ const Modal = ({
     medium: styles["modal-medium"],
     large: styles["modal-large"],
   };
+
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, []);
 
   return (
     <>
