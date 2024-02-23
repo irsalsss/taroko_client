@@ -10,7 +10,7 @@ exports[`Modal should render modal successfully 1`] = `
       class="centered"
     >
       <div
-        class="modal"
+        class="modal modal-small"
       >
         <div
           class="modal-header"

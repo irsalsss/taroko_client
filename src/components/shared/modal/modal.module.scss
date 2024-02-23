@@ -17,13 +17,26 @@
 }
 
 .modal {
-  width: 250px;
-  height: 170px;
   background: white;
   color: white;
   z-index: 10;
   border-radius: 16px;
   box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.04);
+}
+
+.modal-small {
+  width: 250px;
+  height: 170px;
+}
+
+.modal-medium {
+  width: 500px;
+  height: 340px;
+}
+
+.modal-large {
+  width: 750px;
+  height: 510px;
 }
 
 .modal-header {
@@ -36,7 +49,7 @@
 
 .heading {
   margin: 0;
-  padding: 10px;
+  padding: 16px;
   color: #2c3e50;
   font-weight: 500;
   font-size: 18px;
@@ -44,23 +57,23 @@
 }
 
 .modal-content {
-  padding: 10px;
+  padding: 10px 16px;
   font-size: 14px;
   color: #2c3e50;
-  text-align: center;
 }
 
 .modal-actions {
   position: absolute;
   bottom: 2px;
-  margin-bottom: 10px;
   width: 100%;
 }
 
 .actions-container {
+  padding: 16px;
   display: flex;
   justify-content: space-around;
   align-items: center;
+  gap: 8px
 }
 
 .close-btn {
@@ -98,6 +111,7 @@
   color: #fff;
   background: #ff3e4e;
   transition: all 0.25s ease;
+  width: 100%;
 }
 
 .delete-btn:hover {
@@ -117,6 +131,7 @@
   color: #2c3e50;
   background: #fcfcfc;
   transition: all 0.25s ease;
+  width: 100%;
 }
 
 .cancel-btn:hover {

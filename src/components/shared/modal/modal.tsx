@@ -1,21 +1,35 @@
 import { Cross1Icon } from "@radix-ui/react-icons";
-import ButtonIcon from "../button-icon/button-icon";
 import styles from "./modal.module.scss";
+import { ReactNode } from "react";
+import clsx from "clsx";
 
 interface ModalProps {
   onClose: () => void;
   onSubmit: () => void;
-  content: string;
+  content: ReactNode | string;
   title: string;
+  size?: "small" | "medium" | "large";
 }
 
-const Modal = ({ title, content, onClose, onSubmit }: ModalProps) => {
+const Modal = ({
+  size = "small",
+  title,
+  content,
+  onClose,
+  onSubmit,
+}: ModalProps) => {
+  const styleSize = {
+    small: styles["modal-small"],
+    medium: styles["modal-medium"],
+    large: styles["modal-large"],
+  };
+
   return (
     <>
       <div className={styles["dark-bg"]} onClick={onClose} />
 
       <div className={styles["centered"]}>
-        <div className={styles["modal"]}>
+        <div className={clsx(styles["modal"], styleSize[size])}>
           <div className={styles["modal-header"]}>
             <h5 className={styles["heading"]}>{title}</h5>
           </div>
