@@ -1,8 +1,10 @@
 "use client";
 
 import useCreateContact from "@/api/contact/@mutation/use-create-contact/use-create-contact";
+import { useGetContactsQuery } from "@/api/contact/@query/use-get-contacts/use-get-contacts";
 import Input from "@/components/shared/input/input";
 import Modal from "@/components/shared/modal/modal";
+import { notify } from "@/components/shared/toaster/toaster";
 import { ContactFormField } from "@/interfaces/contact/contact.interface";
 import { contactValidation } from "@/validations/contact/contact.validation";
 import { Controller, useForm } from "react-hook-form";
@@ -18,19 +20,27 @@ const ContactModalAddEdit = ({
 }: ContactModalAddEditProps) => {
   const isAddMode = activeId === 0;
 
+  const { refetch } = useGetContactsQuery(false);
+
   const { mutate: createContact } = useCreateContact();
 
-  const { control, handleSubmit } = useForm<ContactFormField>({
+  const {
+    control,
+    handleSubmit,
+    formState: { isDirty, isValid },
+  } = useForm<ContactFormField>({
     mode: "onChange",
   });
 
   const onSubmit = (data: ContactFormField) => {
     createContact(data, {
       onSuccess: () => {
-        console.log("successfully created");
+        refetch();
+        notify("Successfully created");
+        onClose();
       },
       onError: () => {
-        console.log("error created");
+        notify("Something went wrong, please try again");
       },
     });
   };
@@ -112,6 +122,7 @@ const ContactModalAddEdit = ({
           defaultValue=''
           rules={{
             required: "This field is required",
+            validate: contactValidation.description,
           }}
           render={({ field: { value, onChange }, fieldState: { error } }) => (
             <Input
@@ -132,6 +143,7 @@ const ContactModalAddEdit = ({
       content={content}
       onClose={onClose}
       onSubmit={handleSubmit(onSubmit)}
+      isDisableSubmit={!isDirty || !isValid}
       size='large'
     />
   );

@@ -5,10 +5,11 @@ import {
 } from "../../get-contacts/get-contacts";
 import queryClient from "@/utils/query-client-server/query-client-server";
 
-export const useGetContactsQuery = () => {
+export const useGetContactsQuery = (enabled = true) => {
   return useQuery({
     queryKey: ["useGetContactsQuery"],
     queryFn: getContacts,
+    enabled
   });
 };
 

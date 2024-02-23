@@ -9,6 +9,7 @@ interface ModalProps {
   content: ReactNode | string;
   title: string;
   size?: "small" | "medium" | "large";
+  isDisableSubmit?: boolean;
 }
 
 const Modal = ({
@@ -17,6 +18,7 @@ const Modal = ({
   content,
   onClose,
   onSubmit,
+  isDisableSubmit,
 }: ModalProps) => {
   const styleSize = {
     small: styles["modal-small"],
@@ -42,7 +44,11 @@ const Modal = ({
 
           <div className={styles["modal-actions"]}>
             <div className={styles["actions-container"]}>
-              <button className={styles["delete-btn"]} onClick={onSubmit}>
+              <button
+                disabled={isDisableSubmit}
+                className={styles["delete-btn"]}
+                onClick={onSubmit}
+              >
                 Submit
               </button>
 

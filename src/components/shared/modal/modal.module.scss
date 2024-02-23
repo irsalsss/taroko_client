@@ -120,6 +120,14 @@
   background: #ff3e4e;
 }
 
+.delete-btn[disabled]{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+  transform: translateY(0);
+  box-shadow: none;
+}
+
 .cancel-btn {
   margin-top: 10px;
   cursor: pointer;

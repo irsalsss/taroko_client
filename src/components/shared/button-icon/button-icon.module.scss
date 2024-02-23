@@ -15,6 +15,7 @@
   touch-action: manipulation;
   border: 1px solid white;
   transition: 0.3s;
+  flex-shrink: 0;
 
   svg {
     height: 20px;

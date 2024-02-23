@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import "./globals.scss";
 import Providers from "@/utils/query-client/query-client";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,6 +28,7 @@ export default function RootLayout({
         <Providers>
           {children}
           <ReactQueryDevtools initialIsOpen={false} />
+          <ToastContainer autoClose={3000} />
         </Providers>
       </body>
     </html>
