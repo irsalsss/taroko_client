@@ -78,6 +78,8 @@ const ContactList = () => {
         <Tab options={tabOptions} />
       </div>
 
+      {/* TODO: sort */}
+
       <div className='flex flex-wrap gap-4 px-4 mt-4'>
         {contacts.map((contact) => (
           <ContactCard
@@ -86,7 +88,7 @@ const ContactList = () => {
             // TODO: mapping the favorite
             isFavorite={false}
             onDeleteContact={() => handleOpenModalDelete(contact.id)}
-            onEditContact={handleEditContact}
+            onEditContact={() => handleOpenModalAddEdit(contact.id)}
             onFavoriteContact={handleFavoriteContact}
           />
         ))}

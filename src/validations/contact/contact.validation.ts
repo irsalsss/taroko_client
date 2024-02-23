@@ -16,5 +16,5 @@ export const contactValidation: Validator<ContactFormField> = {
   firstName: (value) => generalValidation(value, 15),
   lastName: (value) => generalValidation(value, 15),
   job: (value) => generalValidation(value, 25),
-  description: (value) => generalValidation(value, 25),
+  description: (value) => generalValidation(value, 40),
 }

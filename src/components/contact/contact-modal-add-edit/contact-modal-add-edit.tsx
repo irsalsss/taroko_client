@@ -2,12 +2,16 @@
 
 import useCreateContact from "@/api/contact/@mutation/use-create-contact/use-create-contact";
 import { useGetContactsQuery } from "@/api/contact/@query/use-get-contacts/use-get-contacts";
+import { useGetDetailContactsQuery } from "@/api/contact/@query/use-get-detail-contact/use-get-detail-contact";
 import Input from "@/components/shared/input/input";
 import Modal from "@/components/shared/modal/modal";
 import { notify } from "@/components/shared/toaster/toaster";
 import { ContactFormField } from "@/interfaces/contact/contact.interface";
 import { contactValidation } from "@/validations/contact/contact.validation";
+import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { isEmpty } from "lodash-es";
+import Loader from "@/components/shared/loader/loader";
 
 interface ContactModalAddEditProps {
   activeId: number;
@@ -22,14 +26,21 @@ const ContactModalAddEdit = ({
 
   const { refetch } = useGetContactsQuery(false);
 
+  const { data: detailContact, isLoading } = useGetDetailContactsQuery(
+    activeId,
+    activeId > -1
+  );
+
   const { mutate: createContact } = useCreateContact();
 
   const {
     control,
     handleSubmit,
     formState: { isDirty, isValid },
+    trigger,
   } = useForm<ContactFormField>({
     mode: "onChange",
+    defaultValues: detailContact,
   });
 
   const onSubmit = (data: ContactFormField) => {
@@ -45,6 +56,12 @@ const ContactModalAddEdit = ({
     });
   };
 
+  useEffect(() => {
+    if (!isAddMode && !isEmpty(detailContact)) {
+      trigger();
+    }
+  }, [detailContact]);
+
   const content = (
     <div className='flex flex-col gap-4 p-4'>
       <div className='flex flex-col gap-1'>
@@ -53,7 +70,7 @@ const ContactModalAddEdit = ({
         <Controller
           name='firstName'
           control={control}
-          defaultValue=''
+          defaultValue={detailContact?.firstName}
           rules={{
             required: "This field is required",
             validate: contactValidation.firstName,
@@ -75,7 +92,7 @@ const ContactModalAddEdit = ({
         <Controller
           name='lastName'
           control={control}
-          defaultValue=''
+          defaultValue={detailContact?.lastName}
           rules={{
             required: "This field is required",
             validate: contactValidation.lastName,
@@ -97,7 +114,7 @@ const ContactModalAddEdit = ({
         <Controller
           name='job'
           control={control}
-          defaultValue=''
+          defaultValue={detailContact?.job}
           rules={{
             required: "This field is required",
             validate: contactValidation.job,
@@ -119,7 +136,7 @@ const ContactModalAddEdit = ({
         <Controller
           name='description'
           control={control}
-          defaultValue=''
+          defaultValue={detailContact?.description}
           rules={{
             required: "This field is required",
             validate: contactValidation.description,
@@ -137,10 +154,16 @@ const ContactModalAddEdit = ({
     </div>
   );
 
+  const loaderContent = (
+    <div className='flex justify-center h-full mt-8'>
+      <Loader />
+    </div>
+  );
+
   return (
     <Modal
       title={isAddMode ? "Add Contact" : "Edit Contact"}
-      content={content}
+      content={isLoading ? loaderContent : content}
       onClose={onClose}
       onSubmit={handleSubmit(onSubmit)}
       isDisableSubmit={!isDirty || !isValid}
