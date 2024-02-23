@@ -4,10 +4,10 @@ exports[`Input should render input successfully 1`] = `
 <body>
   <div>
     <div
-      class="relative"
+      class="relative flex gap-1 flex-col"
     >
       <input
-        class="input"
+        class="input input-padding"
         placeholder="Search ..."
       />
     </div>
