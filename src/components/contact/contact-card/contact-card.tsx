@@ -38,7 +38,7 @@ const ContactCard = ({
         </ButtonIcon>
 
         <div className={style["contact-other-information-container"]}>
-          <span className='font-bold'>
+          <span className='font-bold capitalize'>
             {contact.firstName + " " + contact.lastName}
           </span>
 

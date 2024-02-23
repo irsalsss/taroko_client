@@ -11,7 +11,7 @@ export interface DeleteContactOutput extends ResponseInterface {
 
 export const deleteContact = async (id: number): Promise<DeleteContactOutput> => {
   const response = await fetchJson<ResponseInterface>(
-    "/api/contacts/" + id,
+    "/api/contacts/" + 100,
     {
       method: "DELETE",
     }

@@ -1,8 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
-import deleteContact from "../../delete-contact/delete-contact";
+import deleteContact, { DeleteContactOutput } from "../../delete-contact/delete-contact";
+import { CustomError } from "@/utils/fetch-json/fetch-json";
 
 export const useDeleteContact = () => {
-  return useMutation({
+  return useMutation<DeleteContactOutput, CustomError, number>({
     mutationFn: deleteContact,
     mutationKey: ['useDeleteContact']
   });

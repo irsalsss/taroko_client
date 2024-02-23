@@ -54,6 +54,10 @@
   font-weight: 700;
 }
 
+.capitalize {
+  text-transform: capitalize;
+}
+
 .sr-only {
   border: 0 !important;
   clip: rect(1px, 1px, 1px, 1px) !important;

@@ -1,6 +1,15 @@
-import { env } from "@/config/env";
+import { env } from "@/constants/env";
 
 import * as uuid from "uuid";
+
+export class CustomError extends Error {
+  statusCode: number;
+
+  constructor(message: string, { statusCode }: { statusCode: number }) {
+    super(message);
+    this.statusCode = statusCode
+  }
+}
 
 export const fetchJson = async <JSONDataType = unknown>(
   input: RequestInfo,
@@ -21,7 +30,7 @@ export const fetchJson = async <JSONDataType = unknown>(
   const data = await response.json();
 
   if (!response.ok) {
-    throw new Error("Something went wrong");
+    throw new CustomError(data.message, { statusCode: data.statusCode });
   }
 
   return data;

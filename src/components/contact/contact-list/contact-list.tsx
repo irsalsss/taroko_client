@@ -9,6 +9,7 @@ import { useState } from "react";
 import ContactModalAddEdit from "../contact-modal-add-edit/contact-modal-add-edit";
 import useDeleteContact from "@/api/contact/@mutation/use-delete-contact/use-delete-contact";
 import { notify } from "@/components/shared/toaster/toaster";
+import { ERROR_NOT_FOUND } from "@/constants/error";
 
 const tabOptions = [
   {
@@ -51,8 +52,12 @@ const ContactList = () => {
         refetch();
       },
       onError: (response) => {
-        // TODO: fix these one cause got response Error type instead of object
-        console.log("response", response);
+        if (response.statusCode === ERROR_NOT_FOUND) {
+          notify(response.message);
+          return;
+        }
+
+        notify(`Something went wrong, please try again`);
       },
     });
   };
