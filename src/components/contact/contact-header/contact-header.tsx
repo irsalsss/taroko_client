@@ -8,7 +8,11 @@ import { debounce } from "lodash-es";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
 
-const Header = () => {
+interface ContactHeaderProps {
+  onOpenModalAdd: (id: number) => void;
+}
+
+const Header = ({ onOpenModalAdd }: ContactHeaderProps) => {
   const pathname = usePathname();
   const query = useSearchParams();
   const { push } = useRouter();
@@ -30,10 +34,6 @@ const Header = () => {
     setValue(keyword);
   };
 
-  const handleDirectToCreateContact = () => {
-    push("/add-contact");
-  };
-
   return (
     <div className='flex flex-wrap items-center justify-between w-full px-4'>
       <h3>Contact List</h3>
@@ -46,15 +46,15 @@ const Header = () => {
         icon={<MagnifyingGlassIcon />}
       />
 
-      <Button label='Add' onClick={handleDirectToCreateContact} />
+      <Button label='Add' onClick={() => onOpenModalAdd(0)} />
     </div>
   );
 };
 
-const ContactHeader = () => {
+const ContactHeader = (props: ContactHeaderProps) => {
   return (
     <Suspense>
-      <Header />
+      <Header {...props} />
     </Suspense>
   );
 };

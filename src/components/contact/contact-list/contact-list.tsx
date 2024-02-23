@@ -6,6 +6,7 @@ import ContactHeader from "../contact-header/contact-header";
 import Tab from "@/components/shared/tab/tab";
 import Modal from "@/components/shared/modal/modal";
 import { useState } from "react";
+import ContactModalAddEdit from "../contact-modal-add-edit/contact-modal-add-edit";
 
 const tabOptions = [
   {
@@ -19,11 +20,17 @@ const tabOptions = [
 ];
 
 const ContactList = () => {
-  const [openModal, setOpenModal] = useState(0);
+  const [openModalDelete, setOpenModalDelete] = useState(0);
+  const [openModalAddEdit, setOpenModalAddEdit] = useState(-1);
+
   const { data: contacts = [] } = useGetContactsQuery();
 
   const handleOpenModalDelete = (id: number) => {
-    setOpenModal(id);
+    setOpenModalDelete(id);
+  };
+
+  const handleOpenModalAddEdit = (id: number) => {
+    setOpenModalAddEdit(id);
   };
 
   const handleEditContact = () => {
@@ -36,7 +43,7 @@ const ContactList = () => {
 
   return (
     <div className='p-4'>
-      <ContactHeader />
+      <ContactHeader onOpenModalAdd={handleOpenModalAddEdit} />
 
       <div className='px-4 mt-4'>
         <Tab options={tabOptions} />
@@ -56,12 +63,19 @@ const ContactList = () => {
         ))}
       </div>
 
-      {openModal > 0 ? (
+      {openModalDelete > 0 ? (
         <Modal
           title='Delete Contact'
           content='Are you sure want to delete this contact?'
           onClose={() => handleOpenModalDelete(0)}
           onSubmit={() => {}}
+        />
+      ) : null}
+
+      {openModalAddEdit > -1 ? (
+        <ContactModalAddEdit
+          activeId={openModalAddEdit}
+          onClose={() => handleOpenModalAddEdit(-1)}
         />
       ) : null}
     </div>
