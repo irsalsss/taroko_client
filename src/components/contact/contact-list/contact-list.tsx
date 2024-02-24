@@ -5,13 +5,15 @@ import ContactCard from "../contact-card/contact-card";
 import ContactHeader from "../contact-header/contact-header";
 import Tab from "@/components/shared/tab/tab";
 import Modal from "@/components/shared/modal/modal";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import ContactModalAddEdit from "../contact-modal-add-edit/contact-modal-add-edit";
 import useDeleteContact from "@/api/contact/@mutation/use-delete-contact/use-delete-contact";
 import { notify } from "@/components/shared/toaster/toaster";
 import { ERROR_NOT_FOUND } from "@/constants/error";
 import ContactInterface from "@/interfaces/contact/contact.interface";
 import ContactTabEnum from "@/app/enum/contact/contact-tab.enum";
+import { useSearchParams } from "next/navigation";
+import { lowerCase } from "lodash-es";
 
 const tabOptions = [
   {
@@ -31,6 +33,10 @@ const ContactList = () => {
   const [favoriteContacs, setFavoriteContacs] = useState<
     Record<number, ContactInterface>
   >({});
+
+  const query = useSearchParams();
+
+  const search = query.get("search") ?? "";
 
   const { data: contacts = [], refetch } = useGetContactsQuery();
 
@@ -72,28 +78,58 @@ const ContactList = () => {
     });
   };
 
-  const handleFavoriteContact = (contact: ContactInterface) => {
-    const currentFavorites = { ...favoriteContacs };
+  const handleFavoriteContact = useCallback(
+    (contact: ContactInterface) => {
+      const currentFavorites = { ...favoriteContacs };
 
-    if (favoriteContacs.hasOwnProperty(contact.id)) {
-      delete currentFavorites[contact.id];
-    } else {
-      currentFavorites[contact.id] = contact;
-    }
+      if (favoriteContacs.hasOwnProperty(contact.id)) {
+        delete currentFavorites[contact.id];
+        notify(
+          `${contact.firstName} ${contact.lastName} has been removed from favorite`
+        );
+      } else {
+        currentFavorites[contact.id] = contact;
+        notify(
+          `${contact.firstName} ${contact.lastName} has been added to favorite`
+        );
+      }
 
-    setFavoriteContacs(currentFavorites);
-    localStorage.setItem("favorites", JSON.stringify(currentFavorites));
-  };
+      setFavoriteContacs(currentFavorites);
+      localStorage.setItem("favorites", JSON.stringify(currentFavorites));
+    },
+    [favoriteContacs]
+  );
 
   const currentContacts = useMemo(() => {
-    return activeTab === ContactTabEnum.ALL
-      ? contacts
-      : Object.values(favoriteContacs);
-  }, [activeTab, favoriteContacs, contacts]);
+    const list =
+      activeTab === ContactTabEnum.ALL
+        ? contacts
+        : Object.values(favoriteContacs);
+
+    if (search.length > 0) {
+      return list.filter((contact) => {
+        const modifiedSearch = lowerCase(search.trim());
+
+        return (
+          lowerCase(contact.description).includes(modifiedSearch) ||
+          lowerCase(contact.job).includes(modifiedSearch) ||
+          lowerCase(contact.firstName + "" + contact.lastName).includes(
+            modifiedSearch
+          )
+        );
+      });
+    }
+
+    return list;
+  }, [activeTab, favoriteContacs, contacts, search]);
 
   useEffect(() => {
-    const favContacs = JSON.parse(localStorage.getItem("favorites") || "");
-    setFavoriteContacs(favContacs ?? {});
+    const localFavorites = localStorage.getItem("favorites");
+
+    if (localFavorites) {
+      const favContacs = JSON.parse(localFavorites);
+      setFavoriteContacs(favContacs ?? {});
+    }
   }, []);
 
   return (

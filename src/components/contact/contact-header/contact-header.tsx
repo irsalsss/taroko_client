@@ -3,10 +3,11 @@
 import Button from "@/components/shared/button/button";
 import Input from "@/components/shared/input/input";
 import { createQueryString } from "@/utils/create-query-string/create-query-string";
+import { useDebounce } from "@/utils/use-debounce/use-debounce";
+import useHasMounted from "@/utils/use-has-mounted/use-has-mounted";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
-import { debounce } from "lodash-es";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 interface ContactHeaderProps {
   onOpenModalAdd: (id: number) => void;
@@ -14,25 +15,29 @@ interface ContactHeaderProps {
 
 const Header = ({ onOpenModalAdd }: ContactHeaderProps) => {
   const pathname = usePathname();
-  const query = useSearchParams();
   const { push } = useRouter();
+
+  const query = useSearchParams();
+  const hasMounted = useHasMounted();
 
   const search = query.get("search") ?? "";
 
   const [value, setValue] = useState(search);
-
-  const handleDebounceFn = debounce((keyword: string) => {
-    push(
-      pathname + "?" + createQueryString(query.toString(), "search", keyword)
-    );
-
-    // TODO: do client filter here
-  }, 1000);
+  const debouncedValue = useDebounce<string>(value, 500);
 
   const handleSearch = (keyword: string) => {
-    handleDebounceFn(keyword);
     setValue(keyword);
   };
+
+  useEffect(() => {
+    if (hasMounted) {
+      push(
+        pathname +
+          "?" +
+          createQueryString(query.toString(), "search", debouncedValue)
+      );
+    }
+  }, [debouncedValue]);
 
   return (
     <div className='flex flex-wrap items-center justify-between w-full px-4 gap-4'>

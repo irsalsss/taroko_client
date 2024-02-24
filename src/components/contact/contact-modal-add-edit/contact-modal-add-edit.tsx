@@ -48,8 +48,15 @@ const ContactModalAddEdit = ({
   });
 
   const onSubmit = (data: ContactFormField) => {
+    const payload = {
+      firstName: data.firstName.trim(),
+      lastName: data.lastName.trim(),
+      job: data.job.trim(),
+      description: data.description.trim(),
+    };
+
     if (isAddMode) {
-      createContact(data, {
+      createContact(payload, {
         onSuccess: () => {
           queryClient.resetQueries({ queryKey: ["useGetContactsQuery"] });
 
@@ -65,7 +72,7 @@ const ContactModalAddEdit = ({
     }
 
     editContact(
-      { ...data, id: activeId },
+      { ...payload, id: activeId },
       {
         onSuccess: () => {
           queryClient.resetQueries({ queryKey: ["useGetContactsQuery"] });
