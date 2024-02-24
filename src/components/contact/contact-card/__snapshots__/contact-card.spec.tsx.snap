@@ -37,7 +37,7 @@ exports[`ContactCard should render contact card successfully 1`] = `
           class="contact-other-information-container"
         >
           <span
-            class="font-bold"
+            class="font-bold capitalize"
           >
             James Bond
           </span>

@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start -p 8080",
     "lint": "next lint",
-    "test": "jest",
+    "test": "jest --coverage",
+    "test:update": "jest -u",
     "format:fix": "prettier --write --ignore-path .gitignore ."
   },
   "dependencies": {

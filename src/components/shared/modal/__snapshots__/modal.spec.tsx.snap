@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Modal should render modal successfully 1`] = `
-<body>
+<body
+  style="overflow: hidden;"
+>
   <div>
     <div
       class="dark-bg"
