@@ -154,8 +154,8 @@ const ContactList = () => {
       {currentContacts.length === 0 ? (
         <div className='flex justify-center items-center p-8 mt-8'>
           <h5>
-            The {activeTab === ContactTabEnum.ALL ? "contacts" : "favorites"} is
-            empty...
+            The {activeTab === ContactTabEnum.ALL ? "contacts" : "favorites"}{" "}
+            are empty...
           </h5>
         </div>
       ) : null}
