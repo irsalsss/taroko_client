@@ -74,6 +74,12 @@ const ContactList = () => {
         <Tab options={tabOptions} />
       </div>
 
+      {contacts.length === 0 ? (
+        <div className='flex justify-center items-center p-8 mt-8'>
+          <h5>The contact is empty...</h5>
+        </div>
+      ) : null}
+
       {/* TODO: sort */}
 
       <div className='flex flex-wrap gap-4 px-4 mt-4'>
