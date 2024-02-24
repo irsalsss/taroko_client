@@ -5,30 +5,40 @@ import ContactCard from "../contact-card/contact-card";
 import ContactHeader from "../contact-header/contact-header";
 import Tab from "@/components/shared/tab/tab";
 import Modal from "@/components/shared/modal/modal";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import ContactModalAddEdit from "../contact-modal-add-edit/contact-modal-add-edit";
 import useDeleteContact from "@/api/contact/@mutation/use-delete-contact/use-delete-contact";
 import { notify } from "@/components/shared/toaster/toaster";
 import { ERROR_NOT_FOUND } from "@/constants/error";
+import ContactInterface from "@/interfaces/contact/contact.interface";
+import ContactTabEnum from "@/app/enum/contact/contact-tab.enum";
 
 const tabOptions = [
   {
     label: "All",
-    value: "all",
+    value: ContactTabEnum.ALL,
   },
   {
     label: "Favorites",
-    value: "favorites",
+    value: ContactTabEnum.FAVORITES,
   },
 ];
 
 const ContactList = () => {
   const [openModalDelete, setOpenModalDelete] = useState(0);
   const [openModalAddEdit, setOpenModalAddEdit] = useState(-1);
+  const [activeTab, setActiveTab] = useState(tabOptions[0].value);
+  const [favoriteContacs, setFavoriteContacs] = useState<
+    Array<ContactInterface>
+  >([]);
 
   const { data: contacts = [], refetch } = useGetContactsQuery();
 
   const { mutate: deleteContact } = useDeleteContact(openModalAddEdit);
+
+  const handleClickTab = (value: string) => {
+    setActiveTab(value as ContactTabEnum);
+  };
 
   const handleOpenModalDelete = (id: number) => {
     setOpenModalDelete(id);
@@ -66,24 +76,35 @@ const ContactList = () => {
     // TODO: will be implemented on card {card-number}
   };
 
+  const currentContacts = useMemo(() => {
+    return activeTab === ContactTabEnum.ALL ? contacts : favoriteContacs;
+  }, [activeTab, favoriteContacs, contacts]);
+
   return (
     <div className='p-4'>
       <ContactHeader onOpenModalAdd={handleOpenModalAddEdit} />
 
       <div className='px-4 mt-4'>
-        <Tab options={tabOptions} />
+        <Tab
+          options={tabOptions}
+          onClickTab={handleClickTab}
+          defaultValue={activeTab}
+        />
       </div>
 
-      {contacts.length === 0 ? (
+      {currentContacts.length === 0 ? (
         <div className='flex justify-center items-center p-8 mt-8'>
-          <h5>The contact is empty...</h5>
+          <h5>
+            The {activeTab === ContactTabEnum.ALL ? "contacts" : "favorites"} is
+            empty...
+          </h5>
         </div>
       ) : null}
 
       {/* TODO: sort */}
 
       <div className='flex flex-wrap gap-4 px-4 mt-4'>
-        {contacts.map((contact) => (
+        {currentContacts.map((contact) => (
           <ContactCard
             key={contact.id}
             contact={contact}

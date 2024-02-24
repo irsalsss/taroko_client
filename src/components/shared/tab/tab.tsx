@@ -8,10 +8,11 @@ interface TabProps {
     value: string;
   }>;
   onClickTab?: (value: string) => void;
+  defaultValue?: string;
 }
 
-const Tab = ({ options, onClickTab }: TabProps) => {
-  const [active, setActive] = useState(options[0].value);
+const Tab = ({ defaultValue, options, onClickTab }: TabProps) => {
+  const [active, setActive] = useState(defaultValue || options[0].value);
 
   const handleClickTab = (value: string) => {
     setActive(value);

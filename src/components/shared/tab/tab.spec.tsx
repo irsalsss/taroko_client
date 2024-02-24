@@ -5,15 +5,16 @@ import {
   waitFor,
 } from "@/utils/test/react-testing-setup";
 import Tab from "./tab";
+import ContactTabEnum from "@/app/enum/contact/contact-tab.enum";
 
 const tabOptions = [
   {
     label: "All",
-    value: "all",
+    value: ContactTabEnum.ALL,
   },
   {
     label: "Favorites",
-    value: "favorites",
+    value: ContactTabEnum.FAVORITES,
   },
 ];
 
