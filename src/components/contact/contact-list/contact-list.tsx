@@ -29,8 +29,8 @@ const ContactList = () => {
   const [openModalAddEdit, setOpenModalAddEdit] = useState(-1);
   const [activeTab, setActiveTab] = useState(tabOptions[0].value);
   const [favoriteContacs, setFavoriteContacs] = useState<
-    Array<ContactInterface>
-  >([]);
+    Record<number, ContactInterface>
+  >({});
 
   const { data: contacts = [], refetch } = useGetContactsQuery();
 
@@ -72,12 +72,25 @@ const ContactList = () => {
     });
   };
 
-  const handleFavoriteContact = () => {
-    // TODO: will be implemented on card {card-number}
+  const handleFavoriteContact = (contact: ContactInterface) => {
+    if (favoriteContacs.hasOwnProperty(contact.id)) {
+      const currentFavorites = { ...favoriteContacs };
+      delete currentFavorites[contact.id];
+
+      setFavoriteContacs(currentFavorites);
+      return;
+    }
+
+    setFavoriteContacs((prev) => ({
+      ...prev,
+      [contact.id]: contact,
+    }));
   };
 
   const currentContacts = useMemo(() => {
-    return activeTab === ContactTabEnum.ALL ? contacts : favoriteContacs;
+    return activeTab === ContactTabEnum.ALL
+      ? contacts
+      : Object.values(favoriteContacs);
   }, [activeTab, favoriteContacs, contacts]);
 
   return (
@@ -108,11 +121,10 @@ const ContactList = () => {
           <ContactCard
             key={contact.id}
             contact={contact}
-            // TODO: mapping the favorite
-            isFavorite={false}
+            isFavorite={favoriteContacs.hasOwnProperty(contact.id)}
             onDeleteContact={() => handleOpenModalDelete(contact.id)}
             onEditContact={() => handleOpenModalAddEdit(contact.id)}
-            onFavoriteContact={handleFavoriteContact}
+            onFavoriteContact={() => handleFavoriteContact(contact)}
           />
         ))}
       </div>
