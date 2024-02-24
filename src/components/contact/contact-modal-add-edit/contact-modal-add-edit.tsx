@@ -1,7 +1,6 @@
 "use client";
 
 import useCreateContact from "@/api/contact/@mutation/use-create-contact/use-create-contact";
-import { useGetContactsQuery } from "@/api/contact/@query/use-get-contacts/use-get-contacts";
 import { useGetDetailContactsQuery } from "@/api/contact/@query/use-get-detail-contact/use-get-detail-contact";
 import Input from "@/components/shared/input/input";
 import Modal from "@/components/shared/modal/modal";
@@ -14,6 +13,7 @@ import { isEmpty } from "lodash-es";
 import Loader from "@/components/shared/loader/loader";
 import useEditContact from "@/api/contact/@mutation/use-edit-contact/use-edit-contact";
 import { ERROR_NOT_FOUND } from "@/constants/error";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface ContactModalAddEditProps {
   activeId: number;
@@ -26,7 +26,7 @@ const ContactModalAddEdit = ({
 }: ContactModalAddEditProps) => {
   const isAddMode = activeId === 0;
 
-  const { refetch } = useGetContactsQuery(false);
+  const queryClient = useQueryClient();
 
   const { data: detailContact, isLoading } = useGetDetailContactsQuery(
     activeId,
@@ -35,7 +35,7 @@ const ContactModalAddEdit = ({
 
   const { mutate: createContact } = useCreateContact();
 
-  const { mutate: editContact } = useEditContact();
+  const { mutate: editContact } = useEditContact(activeId);
 
   const {
     control,
@@ -51,7 +51,8 @@ const ContactModalAddEdit = ({
     if (isAddMode) {
       createContact(data, {
         onSuccess: () => {
-          refetch();
+          queryClient.resetQueries({ queryKey: ["useGetContactsQuery"] });
+
           notify("Successfully created");
           onClose();
         },
@@ -67,7 +68,12 @@ const ContactModalAddEdit = ({
       { ...data, id: activeId },
       {
         onSuccess: () => {
-          refetch();
+          queryClient.resetQueries({ queryKey: ["useGetContactsQuery"] });
+          queryClient.resetQueries({
+            queryKey: ["useGetDetailContactsQuery", activeId],
+            exact: true,
+          });
+
           notify("Successfully edited");
           onClose();
         },
@@ -89,7 +95,6 @@ const ContactModalAddEdit = ({
     }
   }, [detailContact]);
 
-  // TODO: doesnt update after open another contact
   const content = (
     <div className='flex flex-col gap-4 p-4'>
       <div className='flex flex-col gap-1'>
@@ -98,7 +103,7 @@ const ContactModalAddEdit = ({
         <Controller
           name='firstName'
           control={control}
-          defaultValue={detailContact?.firstName}
+          defaultValue={detailContact?.firstName || ""}
           rules={{
             required: "This field is required",
             validate: contactValidation.firstName,
@@ -120,7 +125,7 @@ const ContactModalAddEdit = ({
         <Controller
           name='lastName'
           control={control}
-          defaultValue={detailContact?.lastName}
+          defaultValue={detailContact?.lastName || ""}
           rules={{
             required: "This field is required",
             validate: contactValidation.lastName,
@@ -142,7 +147,7 @@ const ContactModalAddEdit = ({
         <Controller
           name='job'
           control={control}
-          defaultValue={detailContact?.job}
+          defaultValue={detailContact?.job || ""}
           rules={{
             required: "This field is required",
             validate: contactValidation.job,
@@ -164,7 +169,7 @@ const ContactModalAddEdit = ({
         <Controller
           name='description'
           control={control}
-          defaultValue={detailContact?.description}
+          defaultValue={detailContact?.description || ""}
           rules={{
             required: "This field is required",
             validate: contactValidation.description,

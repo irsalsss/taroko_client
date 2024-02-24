@@ -28,7 +28,7 @@ const ContactList = () => {
 
   const { data: contacts = [], refetch } = useGetContactsQuery();
 
-  const { mutate: deleteContact } = useDeleteContact();
+  const { mutate: deleteContact } = useDeleteContact(openModalAddEdit);
 
   const handleOpenModalDelete = (id: number) => {
     setOpenModalDelete(id);

@@ -4,9 +4,9 @@ import { GetDetailContactsOutput, getDetailContacts } from "../../get-contact-de
 
 export const useGetDetailContactsQuery = (id: number, enabled = true) => {
   return useQuery({
-    queryKey: ["useGetDetailContactsQuery"],
+    queryKey: ["useGetDetailContactsQuery", id],
     queryFn: () => getDetailContacts(id),
-    enabled
+    enabled,
   });
 };
 
