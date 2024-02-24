@@ -47,6 +47,13 @@ const ContactList = () => {
   };
 
   const handleOpenModalDelete = (id: number) => {
+    const isFavorite = favoriteContacs.hasOwnProperty(id);
+    if (isFavorite) {
+      notify(`You can't delete it. Please unfavorite first`);
+
+      return;
+    }
+
     setOpenModalDelete(id);
   };
 
@@ -181,6 +188,7 @@ const ContactList = () => {
         <ContactModalAddEdit
           activeId={openModalAddEdit}
           onClose={() => handleOpenModalAddEdit(-1)}
+          favoriteContacs={favoriteContacs}
         />
       ) : null}
     </div>

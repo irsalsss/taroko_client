@@ -5,7 +5,9 @@ import { useGetDetailContactsQuery } from "@/api/contact/@query/use-get-detail-c
 import Input from "@/components/shared/input/input";
 import Modal from "@/components/shared/modal/modal";
 import { notify } from "@/components/shared/toaster/toaster";
-import { ContactFormField } from "@/interfaces/contact/contact.interface";
+import ContactInterface, {
+  ContactFormField,
+} from "@/interfaces/contact/contact.interface";
 import { contactValidation } from "@/validations/contact/contact.validation";
 import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -18,11 +20,13 @@ import { useQueryClient } from "@tanstack/react-query";
 interface ContactModalAddEditProps {
   activeId: number;
   onClose: () => void;
+  favoriteContacs: Record<number, ContactInterface>;
 }
 
 const ContactModalAddEdit = ({
   activeId,
   onClose,
+  favoriteContacs,
 }: ContactModalAddEditProps) => {
   const isAddMode = activeId === 0;
 
@@ -80,6 +84,13 @@ const ContactModalAddEdit = ({
             queryKey: ["useGetDetailContactsQuery", activeId],
             exact: true,
           });
+
+          const isFavorite = favoriteContacs.hasOwnProperty(activeId);
+          if (isFavorite) {
+            favoriteContacs[activeId] = { ...payload, id: activeId };
+          }
+
+          localStorage.setItem("favorites", JSON.stringify(favoriteContacs));
 
           notify("Successfully edited");
           onClose();
