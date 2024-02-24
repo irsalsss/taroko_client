@@ -5,7 +5,7 @@ import ContactCard from "../contact-card/contact-card";
 import ContactHeader from "../contact-header/contact-header";
 import Tab from "@/components/shared/tab/tab";
 import Modal from "@/components/shared/modal/modal";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import ContactModalAddEdit from "../contact-modal-add-edit/contact-modal-add-edit";
 import useDeleteContact from "@/api/contact/@mutation/use-delete-contact/use-delete-contact";
 import { notify } from "@/components/shared/toaster/toaster";
@@ -73,18 +73,16 @@ const ContactList = () => {
   };
 
   const handleFavoriteContact = (contact: ContactInterface) => {
-    if (favoriteContacs.hasOwnProperty(contact.id)) {
-      const currentFavorites = { ...favoriteContacs };
-      delete currentFavorites[contact.id];
+    const currentFavorites = { ...favoriteContacs };
 
-      setFavoriteContacs(currentFavorites);
-      return;
+    if (favoriteContacs.hasOwnProperty(contact.id)) {
+      delete currentFavorites[contact.id];
+    } else {
+      currentFavorites[contact.id] = contact;
     }
 
-    setFavoriteContacs((prev) => ({
-      ...prev,
-      [contact.id]: contact,
-    }));
+    setFavoriteContacs(currentFavorites);
+    localStorage.setItem("favorites", JSON.stringify(currentFavorites));
   };
 
   const currentContacts = useMemo(() => {
@@ -92,6 +90,11 @@ const ContactList = () => {
       ? contacts
       : Object.values(favoriteContacs);
   }, [activeTab, favoriteContacs, contacts]);
+
+  useEffect(() => {
+    const favContacs = JSON.parse(localStorage.getItem("favorites") || "");
+    setFavoriteContacs(favContacs ?? {});
+  }, []);
 
   return (
     <div className='p-4'>
