@@ -6,6 +6,6 @@ interface ContactInterface {
   description: string;
 }
 
-export type ContactFormField = Omit<ContactInterface, 'id'>
+export type ContactFormField = Omit<ContactInterface, "id">;
 
 export default ContactInterface;

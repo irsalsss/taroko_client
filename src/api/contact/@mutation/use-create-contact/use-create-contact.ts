@@ -4,7 +4,7 @@ import createContact from "../../create-contact/create-contact";
 export const useCreateContact = () => {
   return useMutation({
     mutationFn: createContact,
-    mutationKey: ['useCreateContact']
+    mutationKey: ["useCreateContact"],
   });
 };
 

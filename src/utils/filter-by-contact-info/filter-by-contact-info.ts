@@ -1,7 +1,10 @@
 import ContactInterface from "@/interfaces/contact/contact.interface";
 import { lowerCase } from "lodash-es";
 
-export const filterByContactInfo = (contact: ContactInterface, search: string) => {
+export const filterByContactInfo = (
+  contact: ContactInterface,
+  search: string
+) => {
   const modifiedSearch = lowerCase(search.trim());
 
   return (
@@ -11,4 +14,4 @@ export const filterByContactInfo = (contact: ContactInterface, search: string) =
       modifiedSearch
     )
   );
-}
+};

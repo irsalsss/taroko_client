@@ -1,6 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import queryClient from "@/utils/query-client-server/query-client-server";
-import { GetDetailContactsOutput, getDetailContacts } from "../../get-contact-detail/get-detail-contact";
+import {
+  GetDetailContactsOutput,
+  getDetailContacts,
+} from "../../get-contact-detail/get-detail-contact";
 
 export const useGetDetailContactsQuery = (id: number, enabled = true) => {
   return useQuery({

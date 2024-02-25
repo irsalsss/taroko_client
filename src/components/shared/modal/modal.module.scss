@@ -40,7 +40,9 @@
 }
 
 @media screen and (max-width: 768px) {
-  .modal-small, .modal-medium, .modal-large {
+  .modal-small,
+  .modal-medium,
+  .modal-large {
     width: calc(100vw - 16px);
     height: calc(100vh - 32px);
   }
@@ -80,7 +82,7 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  gap: 8px
+  gap: 8px;
 }
 
 .close-btn {
@@ -127,7 +129,7 @@
   background: #ff3e4e;
 }
 
-.delete-btn[disabled]{
+.delete-btn[disabled] {
   border: 1px solid #999999;
   background-color: #cccccc;
   color: #666666;

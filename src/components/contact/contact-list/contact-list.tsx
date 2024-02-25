@@ -58,7 +58,10 @@ const ContactListContainer = () => {
   };
 
   const handleOpenModalDelete = (id: number) => {
-    const isFavorite = favoriteContacs.hasOwnProperty(id);
+    const isFavorite = Object.prototype.hasOwnProperty.call(
+      favoriteContacs,
+      id
+    );
     if (isFavorite) {
       notify(`You can't delete it. Please unfavorite first`);
 
@@ -100,7 +103,7 @@ const ContactListContainer = () => {
     (contact: ContactInterface) => {
       const currentFavorites = { ...favoriteContacs };
 
-      if (favoriteContacs.hasOwnProperty(contact.id)) {
+      if (Object.prototype.hasOwnProperty.call(favoriteContacs, contact.id)) {
         delete currentFavorites[contact.id];
         notify(
           `${contact.firstName} ${contact.lastName} has been removed from favorite`
@@ -183,7 +186,10 @@ const ContactListContainer = () => {
           <ContactCard
             key={contact.id}
             contact={contact}
-            isFavorite={favoriteContacs.hasOwnProperty(contact.id)}
+            isFavorite={Object.prototype.hasOwnProperty.call(
+              favoriteContacs,
+              contact.id
+            )}
             onDeleteContact={() => handleOpenModalDelete(contact.id)}
             onEditContact={() => handleOpenModalAddEdit(contact.id)}
             onFavoriteContact={() => handleFavoriteContact(contact)}

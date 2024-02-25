@@ -4,19 +4,21 @@ import fetchJson from "@/utils/fetch-json/fetch-json";
 import mapToCamelCase from "@/utils/map-to-camel-case/map-to-camel-case";
 import mapToSnakeCase from "@/utils/map-to-snake-case/map-to-snake-case";
 
-export type EditContactInput = Omit<ContactInterface, 'id'> & {
+export type EditContactInput = Omit<ContactInterface, "id"> & {
   id?: number;
-}
+};
 
 export interface EditContactOutput extends ResponseInterface {
   message: string;
   statusCode: number;
   data: ContactInterface;
-};
+}
 
-export const editContact = async (data: EditContactInput): Promise<EditContactOutput> => {
+export const editContact = async (
+  data: EditContactInput
+): Promise<EditContactOutput> => {
   const body = mapToSnakeCase({
-    info: data
+    info: data,
   });
 
   const response = await fetchJson<ResponseInterface>(
@@ -27,8 +29,7 @@ export const editContact = async (data: EditContactInput): Promise<EditContactOu
     }
   );
 
-  return mapToCamelCase(response)
+  return mapToCamelCase(response);
 };
 
 export default editContact;
-

@@ -21,7 +21,7 @@ export const getDetailContacts = async (
   id: number
 ): Promise<GetDetailContactsOutput> => {
   const response = await fetchJson<GetDetailContactsResponse>(
-    "/api/contacts/" + id,
+    "/api/contacts/" + id
   );
 
   return mapToCamelCase(response.data);

@@ -10,7 +10,7 @@ export const useGetContactsQuery = (enabled = true) => {
   return useQuery({
     queryKey: ["useGetContactsQuery"],
     queryFn: getContacts,
-    enabled
+    enabled,
   });
 };
 
@@ -21,11 +21,11 @@ export const prefetchGetContactsQuery = async () => {
     data = await getContacts();
   } catch (error) {
     data = [];
-    
+
     throw new CustomError((error as CustomError).message, {
       api: (error as CustomError).api,
       statusCode: (error as CustomError).statusCode,
-    })
+    });
   }
 
   await queryClient.prefetchQuery({

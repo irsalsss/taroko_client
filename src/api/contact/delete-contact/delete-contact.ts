@@ -7,18 +7,16 @@ export interface DeleteContactOutput extends ResponseInterface {
   message: string;
   statusCode: number;
   data: ContactInterface;
-};
+}
 
-export const deleteContact = async (id: number): Promise<DeleteContactOutput> => {
-  const response = await fetchJson<ResponseInterface>(
-    "/api/contacts/" + id,
-    {
-      method: "DELETE",
-    }
-  );
+export const deleteContact = async (
+  id: number
+): Promise<DeleteContactOutput> => {
+  const response = await fetchJson<ResponseInterface>("/api/contacts/" + id, {
+    method: "DELETE",
+  });
 
-  return mapToCamelCase(response)
+  return mapToCamelCase(response);
 };
 
 export default deleteContact;
-

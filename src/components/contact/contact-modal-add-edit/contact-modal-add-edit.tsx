@@ -85,7 +85,10 @@ const ContactModalAddEdit = ({
             exact: true,
           });
 
-          const isFavorite = favoriteContacs.hasOwnProperty(activeId);
+          const isFavorite = Object.prototype.hasOwnProperty.call(
+            favoriteContacs,
+            activeId
+          );
           if (isFavorite) {
             favoriteContacs[activeId] = { ...payload, id: activeId };
           }
