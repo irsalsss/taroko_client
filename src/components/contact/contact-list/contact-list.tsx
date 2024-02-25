@@ -13,7 +13,13 @@ import { ERROR_NOT_FOUND } from "@/constants/error";
 import ContactInterface from "@/interfaces/contact/contact.interface";
 import ContactTabEnum from "@/app/enum/contact/contact-tab.enum";
 import { useSearchParams } from "next/navigation";
-import { lowerCase } from "lodash-es";
+import { TextAlignBottomIcon, TextAlignTopIcon } from "@radix-ui/react-icons";
+import ButtonIcon from "@/components/shared/button-icon/button-icon";
+import { filterByContactInfo } from "@/utils/filter-by-contact-info/filter-by-contact-info";
+import {
+  ascendingSortByFirstLastName,
+  descendingSortByFirstLastName,
+} from "@/utils/sort-by-first-last-name/sort-by-first-last-name";
 
 const tabOptions = [
   {
@@ -27,6 +33,7 @@ const tabOptions = [
 ];
 
 const ContactList = () => {
+  const [isAscending, setIsAscending] = useState(true);
   const [openModalDelete, setOpenModalDelete] = useState(0);
   const [openModalAddEdit, setOpenModalAddEdit] = useState(-1);
   const [activeTab, setActiveTab] = useState(tabOptions[0].value);
@@ -41,6 +48,10 @@ const ContactList = () => {
   const { data: contacts = [], refetch } = useGetContactsQuery();
 
   const { mutate: deleteContact } = useDeleteContact(openModalAddEdit);
+
+  const handleSort = () => {
+    setIsAscending((prev) => !prev);
+  };
 
   const handleClickTab = (value: string) => {
     setActiveTab(value as ContactTabEnum);
@@ -113,22 +124,22 @@ const ContactList = () => {
         ? contacts
         : Object.values(favoriteContacs);
 
-    if (search.length > 0) {
-      return list.filter((contact) => {
-        const modifiedSearch = lowerCase(search.trim());
+    let sortedList = list;
 
-        return (
-          lowerCase(contact.description).includes(modifiedSearch) ||
-          lowerCase(contact.job).includes(modifiedSearch) ||
-          lowerCase(contact.firstName + "" + contact.lastName).includes(
-            modifiedSearch
-          )
-        );
-      });
+    if (isAscending) {
+      sortedList = list.sort(ascendingSortByFirstLastName);
+    } else {
+      sortedList = list.sort(descendingSortByFirstLastName);
     }
 
-    return list;
-  }, [activeTab, favoriteContacs, contacts, search]);
+    if (search.length > 0) {
+      return sortedList.filter((contact) =>
+        filterByContactInfo(contact, search)
+      );
+    }
+
+    return sortedList;
+  }, [activeTab, favoriteContacs, contacts, search, isAscending]);
 
   useEffect(() => {
     const localFavorites = localStorage.getItem("favorites");
@@ -143,24 +154,29 @@ const ContactList = () => {
     <div className='p-4'>
       <ContactHeader onOpenModalAdd={handleOpenModalAddEdit} />
 
-      <div className='px-4 mt-4'>
+      <div className='flex items-center justify-between px-4 mt-4'>
         <Tab
           options={tabOptions}
           onClickTab={handleClickTab}
           defaultValue={activeTab}
         />
+
+        <ButtonIcon
+          label={isAscending ? "asc-icon" : "desc-icon"}
+          onClick={handleSort}
+        >
+          {isAscending ? <TextAlignTopIcon /> : <TextAlignBottomIcon />}
+        </ButtonIcon>
       </div>
 
       {currentContacts.length === 0 ? (
         <div className='flex justify-center items-center p-8 mt-8'>
           <h5>
             The {activeTab === ContactTabEnum.ALL ? "contacts" : "favorites"}{" "}
-            are empty...
+            {search.length ? "you've searched" : ""} are empty...
           </h5>
         </div>
       ) : null}
-
-      {/* TODO: sort */}
 
       <div className='flex flex-wrap gap-4 px-4 mt-4'>
         {currentContacts.map((contact) => (

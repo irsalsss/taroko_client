@@ -11,10 +11,10 @@ interface GetContactsData {
   description: string;
 }
 
-export type GetContactsOutput = ReadonlyArray<ContactInterface>;
+export type GetContactsOutput = Array<ContactInterface>;
 
 interface GetContactsResponse extends ResponseInterface {
-  data: ReadonlyArray<GetContactsData>;
+  data: Array<GetContactsData>;
 }
 
 export const getContacts = async (
