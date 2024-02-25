@@ -5,7 +5,7 @@ import ContactCard from "../contact-card/contact-card";
 import ContactHeader from "../contact-header/contact-header";
 import Tab from "@/components/shared/tab/tab";
 import Modal from "@/components/shared/modal/modal";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { Suspense, useCallback, useEffect, useMemo, useState } from "react";
 import ContactModalAddEdit from "../contact-modal-add-edit/contact-modal-add-edit";
 import useDeleteContact from "@/api/contact/@mutation/use-delete-contact/use-delete-contact";
 import { notify } from "@/components/shared/toaster/toaster";
@@ -32,7 +32,7 @@ const tabOptions = [
   },
 ];
 
-const ContactList = () => {
+const ContactListContainer = () => {
   const [isAscending, setIsAscending] = useState(true);
   const [openModalDelete, setOpenModalDelete] = useState(0);
   const [openModalAddEdit, setOpenModalAddEdit] = useState(-1);
@@ -208,6 +208,14 @@ const ContactList = () => {
         />
       ) : null}
     </div>
+  );
+};
+
+const ContactList = () => {
+  return (
+    <Suspense>
+      <ContactListContainer />
+    </Suspense>
   );
 };
 
