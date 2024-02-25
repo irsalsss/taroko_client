@@ -45,7 +45,7 @@ const Header = ({ onOpenModalAdd }: ContactHeaderProps) => {
 
       <Input
         type='text'
-        placeholder='search here...'
+        placeholder='search fullname, job, description...'
         onChange={(e) => handleSearch(e.target.value)}
         value={value}
         icon={<MagnifyingGlassIcon />}

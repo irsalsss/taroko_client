@@ -5,7 +5,7 @@ import {
   waitFor,
 } from "@/utils/test/react-testing-setup";
 import Tab from "./tab";
-import ContactTabEnum from "@/app/enum/contact/contact-tab.enum";
+import ContactTabEnum from "@/enum/contact/contact-tab.enum";
 
 const tabOptions = [
   {

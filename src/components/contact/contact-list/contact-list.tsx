@@ -11,7 +11,7 @@ import useDeleteContact from "@/api/contact/@mutation/use-delete-contact/use-del
 import { notify } from "@/components/shared/toaster/toaster";
 import { ERROR_NOT_FOUND } from "@/constants/error";
 import ContactInterface from "@/interfaces/contact/contact.interface";
-import ContactTabEnum from "@/app/enum/contact/contact-tab.enum";
+import ContactTabEnum from "@/enum/contact/contact-tab.enum";
 import { useSearchParams } from "next/navigation";
 import { TextAlignBottomIcon, TextAlignTopIcon } from "@radix-ui/react-icons";
 import ButtonIcon from "@/components/shared/button-icon/button-icon";
