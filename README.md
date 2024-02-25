@@ -14,4 +14,6 @@
 
 ## Demo
 
+before go to the demo, please run the server in local with port http://localhost:3000
+
 [Taroko - Contacts](https://taroko-client-nu.vercel.app/contacts)
