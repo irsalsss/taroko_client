@@ -22,9 +22,8 @@ export const prefetchGetContactsQuery = async () => {
   } catch (error) {
     data = [];
     
-    console.error({
-      api: '/api/contacts',
-      message: (error as CustomError).message,
+    throw new CustomError((error as CustomError).message, {
+      api: (error as CustomError).api,
       statusCode: (error as CustomError).statusCode,
     })
   }
