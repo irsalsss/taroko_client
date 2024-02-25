@@ -27,8 +27,14 @@ export const fetchJson = async <JSONDataType = unknown>(
     },
   });
 
-  const data = await response.json();
+  let data;
 
+  try {
+    data = await response.json();
+  } catch {
+    throw new CustomError(response.statusText, { statusCode: response.status });
+  }
+  
   if (!response.ok) {
     throw new CustomError(data.message, { statusCode: data.statusCode });
   }

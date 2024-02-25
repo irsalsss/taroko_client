@@ -4,6 +4,7 @@ import {
   getContacts,
 } from "../../get-contacts/get-contacts";
 import queryClient from "@/utils/query-client-server/query-client-server";
+import { CustomError } from "@/utils/fetch-json/fetch-json";
 
 export const useGetContactsQuery = (enabled = true) => {
   return useQuery({
@@ -18,8 +19,14 @@ export const prefetchGetContactsQuery = async () => {
 
   try {
     data = await getContacts();
-  } catch {
+  } catch (error) {
     data = [];
+    
+    console.error({
+      api: '/api/contacts',
+      message: (error as CustomError).message,
+      statusCode: (error as CustomError).statusCode,
+    })
   }
 
   await queryClient.prefetchQuery({
