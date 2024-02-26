@@ -13,7 +13,7 @@ export const useGetDetailContactsQuery = (id: number, enabled = true) => {
   });
 };
 
-export const prefetchGetContactsQuery = async (id: number) => {
+export const prefetchGetDetailContactsQuery = async (id: number) => {
   let data: GetDetailContactsOutput | undefined;
 
   try {
