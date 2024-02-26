@@ -3,10 +3,10 @@ import { Inter } from "next/font/google";
 import "./globals.scss";
 import Providers from "@/utils/query-client/query-client";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import Toaster from "@/components/shared/toaster/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -32,7 +32,7 @@ export default function RootLayout({
           <Analytics />
           <SpeedInsights />
           <ReactQueryDevtools initialIsOpen={false} />
-          <ToastContainer autoClose={3000} />
+          <Toaster />
         </Providers>
       </body>
     </html>

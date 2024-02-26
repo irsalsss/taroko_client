@@ -35,3 +35,13 @@ export const MOCK_LIST_CONTACT = [
     description: "I am your father!"
   },
 ]
+
+export const MOCK_FAVORITE_CONTACT = {
+  1: {
+    id: 1,
+    firstName: "Luke",
+    lastName: "Skywalker",
+    job: "Jedi knight",
+    description: "Son of Anakin Skywalker"
+  },
+}
