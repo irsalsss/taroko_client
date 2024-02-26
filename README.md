@@ -5,8 +5,11 @@
 ## Run the project
 
 ```
-- add .env file in the root of folder (see .env.example)
+- clone the server [taroko_server](https://github.com/irsalsss/taroko_server)
 - run the server (taroko_server) on http://localhost:3000
+
+- clone this repo
+- add .env file in the root of folder (see .env.example)
 - npm install
 - npm run dev
 - go to http://localhost:8080/
