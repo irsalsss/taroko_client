@@ -9,7 +9,7 @@ export const contactHandlers = [
       ctx.json({
         status_code: 200,
         message: "Success get contact list!",
-        data: MOCK_LIST_CONTACT
+        data: MOCK_LIST_CONTACT,
       })
     );
   }),
@@ -20,7 +20,7 @@ export const contactHandlers = [
       ctx.json({
         status_code: 200,
         message: "Success get detail contact!",
-        data: MOCK_LIST_CONTACT[0]
+        data: MOCK_LIST_CONTACT[0],
       })
     );
   }),
@@ -36,8 +36,8 @@ export const contactHandlers = [
           first_name: "Luke - edited",
           last_name: "Skywalker - edited",
           job: "Jedi knight - edited",
-          description: "Son of Anakin Skywalker edited"
-        }
+          description: "Son of Anakin Skywalker edited",
+        },
       })
     );
   }),
@@ -48,7 +48,7 @@ export const contactHandlers = [
       ctx.json({
         status_code: 200,
         message: "Success delete contact!",
-        data: MOCK_LIST_CONTACT[0]
+        data: MOCK_LIST_CONTACT[0],
       })
     );
   }),
@@ -59,8 +59,8 @@ export const contactHandlers = [
       ctx.json({
         status_code: 200,
         message: "Success create contact!",
-        data: MOCK_LIST_CONTACT[0]
+        data: MOCK_LIST_CONTACT[0],
       })
     );
   }),
-]
+];

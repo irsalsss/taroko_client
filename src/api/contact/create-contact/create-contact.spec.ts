@@ -8,13 +8,15 @@ describe("createContact", () => {
       firstName: "Luke",
       lastName: "Skywalker",
       job: "Jedi knight",
-      description: "Son of Anakin Skywalker"
+      description: "Son of Anakin Skywalker",
     });
 
-    expect(output).toStrictEqual(mapToCamelCase({
-      status_code: 200,
-      message: "Success create contact!",
-      data: MOCK_LIST_CONTACT[0]
-    }));
+    expect(output).toStrictEqual(
+      mapToCamelCase({
+        status_code: 200,
+        message: "Success create contact!",
+        data: MOCK_LIST_CONTACT[0],
+      })
+    );
   });
 });

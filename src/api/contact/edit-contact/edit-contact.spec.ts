@@ -7,15 +7,15 @@ describe("editContact", () => {
       firstName: "Luke - edited",
       lastName: "Skywalker - edited",
       job: "Jedi knight - edited",
-      description: "Son of Anakin Skywalker edited"
-    }
+      description: "Son of Anakin Skywalker edited",
+    };
 
     const output = await editContact(data);
 
     expect(output).toStrictEqual({
       statusCode: 200,
       message: "Success update contact!",
-      data
+      data,
     });
   });
 });

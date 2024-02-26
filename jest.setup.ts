@@ -3,11 +3,11 @@ import "@testing-library/jest-dom";
 
 import "whatwg-fetch";
 
-jest.mock('next/navigation', () => {
+jest.mock("next/navigation", () => {
   return {
     __esModule: true,
     usePathname: () => ({
-      pathname: '',
+      pathname: "",
     }),
     useRouter: () => ({
       push: jest.fn(),
@@ -15,10 +15,10 @@ jest.mock('next/navigation', () => {
       prefetch: jest.fn(),
     }),
     useSearchParams: () => ({
-      get: () => {}
-    })
-  }
-})
+      get: () => {},
+    }),
+  };
+});
 
 beforeAll(() => {
   server.listen();
