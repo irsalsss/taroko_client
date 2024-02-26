@@ -1,4 +1,4 @@
-export const MOCK_LIST_ACCOUNT = [
+export const MOCK_LIST_CONTACT = [
   {
     id: 1,
     first_name: "Luke",

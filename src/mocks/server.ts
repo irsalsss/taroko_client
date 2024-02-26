@@ -1,8 +1,8 @@
-import { accountHandlers } from "@/handlers/account/account-handlers";
+import { contactHandlers } from "@/handlers/contact/contact-handlers";
 import { setupServer } from "msw/node";
 
 const handlers = [
-  ...accountHandlers
+  ...contactHandlers
 ]
 
 export const server = setupServer(...handlers);
