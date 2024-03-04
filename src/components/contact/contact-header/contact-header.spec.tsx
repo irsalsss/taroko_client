@@ -4,7 +4,7 @@ import ContactHeader from "./contact-header";
 
 describe("ContactHeader", () => {
   it("should render ContactHeader successfully", () => {
-    const { baseElement } = render(<ContactHeader onOpenModalAdd={jest.fn} />, {
+    const { baseElement } = render(<ContactHeader />, {
       wrapper: wrapperReactQuery,
     });
 

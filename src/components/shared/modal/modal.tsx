@@ -1,3 +1,5 @@
+"use client";
+
 import { Cross1Icon } from "@radix-ui/react-icons";
 import styles from "./modal.module.scss";
 import { ReactNode, useEffect } from "react";

@@ -32,7 +32,7 @@ exports[`ContactHeader should render ContactHeader successfully 1`] = `
         </div>
         <input
           class="input input-padding-with-icon"
-          placeholder="search fullname, job, description..."
+          placeholder="search anything here..."
           type="text"
           value=""
         />

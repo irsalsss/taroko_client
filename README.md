@@ -11,7 +11,8 @@
 - clone this repo
 - add .env file in the root of folder (see .env.example)
 - npm install
-- npm run dev
+- npm run build
+- npm start
 - go to http://localhost:8080/
 ```
 

@@ -20,13 +20,13 @@ import { useQueryClient } from "@tanstack/react-query";
 interface ContactModalAddEditProps {
   activeId: number;
   onClose: () => void;
-  favoriteContacs: Record<number, ContactInterface>;
+  favoriteContacts: Record<number, ContactInterface>;
 }
 
 const ContactModalAddEdit = ({
   activeId,
   onClose,
-  favoriteContacs,
+  favoriteContacts,
 }: ContactModalAddEditProps) => {
   const isAddMode = activeId === 0;
 
@@ -37,9 +37,11 @@ const ContactModalAddEdit = ({
     activeId > 0
   );
 
-  const { mutate: createContact } = useCreateContact();
+  const { mutate: createContact, isPending: isLoadingCreateContact } =
+    useCreateContact();
 
-  const { mutate: editContact } = useEditContact(activeId);
+  const { mutate: editContact, isPending: isLoadingEditContact } =
+    useEditContact(activeId);
 
   const {
     control,
@@ -86,14 +88,14 @@ const ContactModalAddEdit = ({
           });
 
           const isFavorite = Object.prototype.hasOwnProperty.call(
-            favoriteContacs,
+            favoriteContacts,
             activeId
           );
           if (isFavorite) {
-            favoriteContacs[activeId] = { ...payload, id: activeId };
+            favoriteContacts[activeId] = { ...payload, id: activeId };
           }
 
-          localStorage.setItem("favorites", JSON.stringify(favoriteContacs));
+          localStorage.setItem("favorites", JSON.stringify(favoriteContacts));
 
           notify("Successfully edited");
           onClose();
@@ -220,7 +222,9 @@ const ContactModalAddEdit = ({
       content={!isAddMode && isLoading ? loaderContent : content}
       onClose={onClose}
       onSubmit={handleSubmit(onSubmit)}
-      isDisableSubmit={!isDirty || !isValid}
+      isDisableSubmit={
+        !isDirty || !isValid || isLoadingCreateContact || isLoadingEditContact
+      }
       size='large'
     />
   );

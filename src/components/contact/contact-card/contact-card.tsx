@@ -1,3 +1,5 @@
+"use client";
+
 import ContactInterface from "@/interfaces/contact/contact.interface";
 import style from "./contact-card.module.scss";
 import {
@@ -12,8 +14,8 @@ interface ContactCardProps {
   contact: ContactInterface;
   isFavorite?: boolean;
   onEditContact: () => void;
-  onDeleteContact: () => void;
   onFavoriteContact: () => void;
+  onDeleteContact: () => void;
 }
 
 const ContactCard = ({

@@ -1,3 +1,5 @@
+"use client";
+
 import { ComponentPropsWithoutRef } from "react";
 import style from "./button.module.scss";
 

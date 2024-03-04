@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { UseQueryOptions, useQuery } from "@tanstack/react-query";
 import {
   GetContactsOutput,
   getContacts,
@@ -6,11 +6,16 @@ import {
 import queryClient from "@/utils/query-client-server/query-client-server";
 import { CustomError } from "@/utils/fetch-json/fetch-json";
 
-export const useGetContactsQuery = (enabled = true) => {
-  return useQuery({
+export const useGetContactsQuery = (
+  options?: Omit<
+    UseQueryOptions<GetContactsOutput, CustomError, GetContactsOutput>,
+    "queryKey" | "queryFn"
+  >
+) => {
+  return useQuery<GetContactsOutput, CustomError, GetContactsOutput>({
+    ...options,
     queryKey: ["useGetContactsQuery"],
     queryFn: getContacts,
-    enabled,
   });
 };
 

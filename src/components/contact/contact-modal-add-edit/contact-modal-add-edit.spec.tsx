@@ -9,7 +9,7 @@ describe("ContactModalAddEdit", () => {
       <ContactModalAddEdit
         activeId={0}
         onClose={jest.fn()}
-        favoriteContacs={MOCK_FAVORITE_CONTACT}
+        favoriteContacts={MOCK_FAVORITE_CONTACT}
       />,
       { wrapper: wrapperReactQuery }
     );

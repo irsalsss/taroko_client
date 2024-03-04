@@ -1,3 +1,5 @@
+"use client";
+
 import style from "./loader.module.scss";
 
 const Loader = () => {
